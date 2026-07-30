@@ -1,17 +1,19 @@
 import { AppLayout } from "@/components/layout/app-layout";
+import { PageHeader } from "@/components/common/page-header";
+import { MissionBrief } from "@/components/dashboard/mission-brief/mission-brief";
+import { QuickActions } from "@/components/dashboard/quick-actions/quick-actions";
 
 export default function Home() {
   return (
     <AppLayout>
-      <div className="rounded-xl border border-slate-200 bg-white p-8">
-        <h1 className="text-3xl font-bold">
-          FlowPilot AI
-        </h1>
+  <PageHeader
+    title="Dashboard"
+    description="Monitor production, inventory, supplier performance, and AI-driven operational insights from a single command center."
+  />
 
-        <p className="mt-3 text-slate-600">
-          AI-Powered Supply Chain Command Center
-        </p>
-      </div>
-    </AppLayout>
+  <MissionBrief />
+
+  <QuickActions />
+</AppLayout>
   );
 }

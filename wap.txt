@@ -1,0 +1,1 @@
+I built an AI-powered Supply Chain Command Center called FlowPilot AI. It's a full-stack enterprise SaaS application inspired by modern manufacturing operations platforms. It includes AI mission briefs, operational analytics, supplier intelligence, production monitoring, rescue plan generation, and an AI Copilot for decision support.

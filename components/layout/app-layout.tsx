@@ -8,14 +8,20 @@ interface AppLayoutProps {
 
 export function AppLayout({ children }: AppLayoutProps) {
   return (
-    <div className="flex min-h-screen bg-slate-100">
+    <div className="flex h-screen overflow-hidden bg-slate-100">
+      {/* Fixed Sidebar */}
       <Sidebar />
 
-      <div className="flex flex-1 flex-col">
+      {/* Main Layout */}
+      <div className="flex flex-1 flex-col overflow-hidden">
+        {/* Fixed Navbar */}
         <Navbar />
 
-        <main className="flex-1 p-6">
-          {children}
+        {/* Scrollable Dashboard Content */}
+        <main className="flex-1 overflow-y-auto bg-slate-50">
+          <div className="w-full p-8">
+            {children}
+          </div>
         </main>
       </div>
     </div>

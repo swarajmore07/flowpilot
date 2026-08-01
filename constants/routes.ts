@@ -1,3 +1,5 @@
+export * from "./theme";
+export * from "./routes";
 export const ROUTES = [
   {
     title: "Dashboard",

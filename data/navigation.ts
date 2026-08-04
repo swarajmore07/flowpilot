@@ -3,6 +3,7 @@
 import type { NavigationGroup } from "@/types/navigation";
 
 import {
+  Boxes,
   ChartColumn,
   ClipboardCheck,
   Factory,
@@ -25,7 +26,7 @@ export const navigation: NavigationGroup[] = [
       {
         title: "Inventory",
         href: "/inventory",
-        icon: Package,
+        icon: Boxes,
       },
       {
         title: "Suppliers",

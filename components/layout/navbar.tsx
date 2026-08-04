@@ -1,24 +1,36 @@
 "use client";
 
 import { Bell, Search, Sparkles } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
+import { pageConfig } from "@/data/page-config";
 
 export function Navbar() {
+  const pathname = usePathname();
+
+  const page =
+    pageConfig[pathname as keyof typeof pageConfig] ??
+    {
+      section: "Operations",
+      title: "Dashboard",
+      description: "AI-Powered Supply Chain Command Center",
+    };
+
   return (
     <header className="flex h-20 items-center justify-between border-b border-slate-200 bg-white px-8">
       {/* Left */}
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
-          Operations
+          {page.section}
         </p>
 
         <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">
-          Dashboard
+          {page.title}
         </h2>
 
         <p className="mt-1 text-sm text-slate-500">
-          AI-Powered Supply Chain Command Center
+          {page.description}
         </p>
       </div>
 

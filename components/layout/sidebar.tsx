@@ -1,58 +1,97 @@
 "use client";
 
-import { BriefcaseBusiness } from "lucide-react";
+import { useMemo } from "react";
 
 import { navigation } from "@/data/navigation";
+import { localTimeZoneLabel } from "@/lib/date";
+import { useHydrated } from "@/lib/use-hydrated";
+import { cn } from "@/lib/utils";
+
+import { LogoMark } from "./logo-mark";
 import { SidebarGroup } from "./sidebar-group";
 
-export function Sidebar() {
+interface SidebarProps {
+  className?: string;
+  onNavigate?: () => void;
+}
+
+export function Sidebar({ className, onNavigate }: SidebarProps) {
+  /*
+   * The footer reports two browser facts, so both wait for the browser.
+   *
+   * It used to read "AI engine online" over a pulsing green dot, which the
+   * Copilot page then spent a card contradicting — nothing here calls a model.
+   * A status light that reports something the product does not do is worse than
+   * no status light: it is the one part of the shell a reader would check when
+   * something looks wrong.
+   */
+  const hydrated = useHydrated();
+
+  const timeZone = useMemo(
+    () => (hydrated ? localTimeZoneLabel() : ""),
+    [hydrated]
+  );
+
   return (
-    <aside className="flex h-full w-80 shrink-0 flex-col border-r border-slate-200 bg-white shadow-sm">
-      {/* Logo */}
-      <div className="flex h-24 items-center border-b border-slate-200 px-7">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600 shadow-sm">
-          <BriefcaseBusiness className="h-6 w-6 text-white" />
-        </div>
+    <aside
+      className={cn(
+        "flex h-full w-64 shrink-0 flex-col border-r border-line bg-panel",
+        className
+      )}
+    >
+      {/* Wordmark — height matches the navbar so the two rules align. */}
+      <div className="flex h-14 shrink-0 items-center gap-2.5 border-b border-line px-4">
+        <LogoMark />
 
-        <div className="ml-4">
-          <h1 className="text-xl font-bold tracking-tight text-slate-900">
+        <div className="min-w-0">
+          <p className="font-display text-sm leading-none font-semibold tracking-[-0.015em] text-ink">
             FlowPilot AI
-          </h1>
-
-          <p className="mt-1 text-sm text-slate-500">
-            Supply Chain Command
           </p>
+          <p className="label-micro mt-1">Supply Chain</p>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto px-4 py-6">
-        <div className="space-y-8">
-          {navigation.map((group) => (
-            <SidebarGroup key={group.group} group={group} />
-          ))}
-        </div>
+      <nav
+        aria-label="Main navigation"
+        className="flex-1 space-y-6 overflow-y-auto px-3 py-5"
+      >
+        {navigation.map((group) => (
+          <SidebarGroup
+            key={group.group}
+            group={group}
+            onNavigate={onNavigate}
+          />
+        ))}
       </nav>
 
-      {/* Footer */}
-      <div className="border-t border-slate-200 p-4">
-        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
-          <div className="flex items-center gap-2">
-            <div className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+      {/* System status */}
+      <div className="shrink-0 border-t border-line px-4 py-3.5">
+        <div className="flex items-center gap-2">
+          <span className="relative flex size-1.5 shrink-0">
+            {/* The pulse is the claim that something is running, so it starts
+                when something is: before hydration the dot sits still and
+                grey. */}
+            {hydrated && (
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-positive opacity-60" />
+            )}
 
-            <span className="text-sm font-semibold text-emerald-700">
-              System Healthy
-            </span>
-          </div>
+            <span
+              className={cn(
+                "relative inline-flex size-1.5 rounded-full",
+                hydrated ? "bg-positive" : "bg-ink-faint/40"
+              )}
+            />
+          </span>
 
-          <p className="mt-2 text-sm text-slate-600">
-            AI Engine Online
-          </p>
-
-          <p className="mt-1 text-xs text-slate-400">
-            Version 1.0.0
+          <p className="text-xs font-medium text-ink-soft">
+            {hydrated ? "Running locally" : "Starting up"}
           </p>
         </div>
+
+        <p className="identifier mt-2 text-[0.6875rem] text-ink-faint">
+          {timeZone ? `v1.0.0 · ${timeZone}` : "v1.0.0"}
+        </p>
       </div>
     </aside>
   );

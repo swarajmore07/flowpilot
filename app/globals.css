@@ -4,127 +4,438 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ==========================================================================
+   FlowPilot AI — "Precision Instrument" design system
+   --------------------------------------------------------------------------
+   Near-monochrome graphite shell. A single restrained indigo carries brand
+   and interaction state; emerald / amber / rose are reserved exclusively for
+   data signal, never decoration.
+   ========================================================================== */
+
 @theme inline {
+  /* ---- shadcn semantic bridge ------------------------------------------- */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* ---- FlowPilot surfaces ---------------------------------------------- */
+  --color-canvas: var(--canvas);
+  --color-panel: var(--panel);
+  --color-panel-sunken: var(--panel-sunken);
+  --color-panel-raised: var(--panel-raised);
+
+  /* ---- FlowPilot hairlines --------------------------------------------- */
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  /* ---- FlowPilot text -------------------------------------------------- */
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+
+  /* ---- Brand ----------------------------------------------------------- */
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-line: var(--brand-line);
+  --color-brand-fg: var(--brand-fg);
+
+  /* ---- Signal ---------------------------------------------------------- */
+  --color-positive: var(--positive);
+  --color-positive-soft: var(--positive-soft);
+  --color-positive-line: var(--positive-line);
+
+  --color-caution: var(--caution);
+  --color-caution-soft: var(--caution-soft);
+  --color-caution-line: var(--caution-line);
+
+  --color-critical: var(--critical);
+  --color-critical-soft: var(--critical-soft);
+  --color-critical-line: var(--critical-line);
+
+  /* ---- Fonts ----------------------------------------------------------- */
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-archivo);
+  --font-heading: var(--font-archivo);
+  --font-mono: var(--font-plex-mono);
+
+  /* ---- Radius ---------------------------------------------------------- */
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-xl: calc(var(--radius) * 1.5);
+  --radius-2xl: calc(var(--radius) * 2);
+  --radius-3xl: calc(var(--radius) * 2.5);
+  --radius-4xl: calc(var(--radius) * 3);
+
+  /* ---- Shadows --------------------------------------------------------- */
+  --shadow-hairline: 0 1px 2px 0 var(--shadow-tint);
+
+  --shadow-panel:
+    0 1px 2px 0 var(--shadow-tint),
+    0 1px 1px -1px var(--shadow-tint);
+
+  --shadow-overlay:
+    0 12px 32px -8px var(--shadow-tint-strong),
+    0 4px 12px -4px var(--shadow-tint);
 }
+
+/* ==========================================================================
+   LIGHT THEME
+   ========================================================================== */
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --radius: 0.5rem;
+
+  /* Surfaces */
+  --canvas: oklch(0.976 0.0015 106);
+  --panel: oklch(1 0 0);
+  --panel-sunken: oklch(0.967 0.002 106);
+  --panel-raised: oklch(1 0 0);
+
+  /* Hairlines */
+  --line: oklch(0.912 0.003 106);
+  --line-strong: oklch(0.853 0.004 106);
+
+  /* Text */
+  --ink: oklch(0.215 0.008 271);
+  --ink-soft: oklch(0.455 0.011 271);
+  --ink-faint: oklch(0.625 0.009 271);
+
+  /* Brand */
+  --brand: oklch(0.475 0.125 267);
+  --brand-hover: oklch(0.415 0.13 267);
+  --brand-soft: oklch(0.955 0.018 267);
+  --brand-line: oklch(0.878 0.045 267);
+  --brand-fg: oklch(0.99 0.002 267);
+
+  /* Signal */
+  --positive: oklch(0.52 0.105 158);
+  --positive-soft: oklch(0.958 0.025 158);
+  --positive-line: oklch(0.878 0.055 158);
+
+  --caution: oklch(0.585 0.115 68);
+  --caution-soft: oklch(0.962 0.035 78);
+  --caution-line: oklch(0.885 0.07 78);
+
+  --critical: oklch(0.515 0.175 22);
+  --critical-soft: oklch(0.958 0.022 22);
+  --critical-line: oklch(0.885 0.055 22);
+
+  /* Shadows */
+  --shadow-tint: oklch(0.215 0.008 271 / 7%);
+  --shadow-tint-strong: oklch(0.215 0.008 271 / 14%);
+
+  /* shadcn semantics */
+  --background: oklch(0.976 0.0015 106);
+  --foreground: oklch(0.215 0.008 271);
+
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.215 0.008 271);
+
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --popover-foreground: oklch(0.215 0.008 271);
+
+  --primary: oklch(0.475 0.125 267);
+  --primary-foreground: oklch(0.99 0.002 267);
+
+  --secondary: oklch(0.958 0.002 106);
+  --secondary-foreground: oklch(0.215 0.008 271);
+
+  --muted: oklch(0.962 0.002 106);
+  --muted-foreground: oklch(0.455 0.011 271);
+
+  --accent: oklch(0.947 0.003 106);
+  --accent-foreground: oklch(0.215 0.008 271);
+
+  --destructive: oklch(0.515 0.175 22);
+
+  --border: oklch(0.912 0.003 106);
+  --input: oklch(0.912 0.003 106);
+  --ring: oklch(0.475 0.125 267);
+
+  /* Charts */
+  --chart-1: oklch(0.475 0.125 267);
+  --chart-2: oklch(0.52 0.105 158);
+  --chart-3: oklch(0.585 0.115 68);
+  --chart-4: oklch(0.515 0.175 22);
+  --chart-5: oklch(0.55 0.11 305);
+
+  /* Sidebar */
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.215 0.008 271);
+  --sidebar-primary: oklch(0.475 0.125 267);
+  --sidebar-primary-foreground: oklch(0.99 0.002 267);
+  --sidebar-accent: oklch(0.962 0.002 106);
+  --sidebar-accent-foreground: oklch(0.215 0.008 271);
+  --sidebar-border: oklch(0.912 0.003 106);
+  --sidebar-ring: oklch(0.475 0.125 267);
 }
+
+/* ==========================================================================
+   DARK THEME
+   ========================================================================== */
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Surfaces */
+  --canvas: oklch(0.168 0.006 271);
+  --panel: oklch(0.208 0.007 271);
+  --panel-sunken: oklch(0.245 0.008 271);
+  --panel-raised: oklch(0.235 0.008 271);
+
+  /* Hairlines */
+  --line: oklch(0.298 0.009 271);
+  --line-strong: oklch(0.365 0.01 271);
+
+  /* Text */
+  --ink: oklch(0.965 0.002 271);
+  --ink-soft: oklch(0.715 0.012 271);
+  --ink-faint: oklch(0.575 0.012 271);
+
+  /* Brand */
+  --brand: oklch(0.66 0.135 267);
+  --brand-hover: oklch(0.72 0.128 267);
+  --brand-soft: oklch(0.285 0.055 267);
+  --brand-line: oklch(0.38 0.08 267);
+  --brand-fg: oklch(0.155 0.02 267);
+
+  /* Signal */
+  --positive: oklch(0.72 0.13 158);
+  --positive-soft: oklch(0.27 0.045 158);
+  --positive-line: oklch(0.36 0.06 158);
+
+  --caution: oklch(0.78 0.13 78);
+  --caution-soft: oklch(0.29 0.05 78);
+  --caution-line: oklch(0.38 0.07 78);
+
+  --critical: oklch(0.68 0.16 22);
+  --critical-soft: oklch(0.29 0.06 22);
+  --critical-line: oklch(0.4 0.09 22);
+
+  /* Shadows */
+  --shadow-tint: oklch(0 0 0 / 32%);
+  --shadow-tint-strong: oklch(0 0 0 / 48%);
+
+  /* shadcn semantics */
+  --background: oklch(0.168 0.006 271);
+  --foreground: oklch(0.965 0.002 271);
+
+  --card: oklch(0.208 0.007 271);
+  --card-foreground: oklch(0.965 0.002 271);
+
+  --popover: oklch(0.208 0.007 271);
+  --popover-foreground: oklch(0.965 0.002 271);
+
+  --primary: oklch(0.66 0.135 267);
+  --primary-foreground: oklch(0.155 0.02 267);
+
+  --secondary: oklch(0.262 0.008 271);
+  --secondary-foreground: oklch(0.965 0.002 271);
+
+  --muted: oklch(0.262 0.008 271);
+  --muted-foreground: oklch(0.715 0.012 271);
+
+  --accent: oklch(0.278 0.009 271);
+  --accent-foreground: oklch(0.965 0.002 271);
+
+  --destructive: oklch(0.68 0.16 22);
+
+  --border: oklch(0.298 0.009 271);
+  --input: oklch(0.318 0.01 271);
+  --ring: oklch(0.66 0.135 267);
+
+  /* Charts */
+  --chart-1: oklch(0.66 0.135 267);
+  --chart-2: oklch(0.72 0.13 158);
+  --chart-3: oklch(0.78 0.13 78);
+  --chart-4: oklch(0.68 0.16 22);
+  --chart-5: oklch(0.68 0.13 305);
+
+  /* Sidebar */
+  --sidebar: oklch(0.208 0.007 271);
+  --sidebar-foreground: oklch(0.965 0.002 271);
+  --sidebar-primary: oklch(0.66 0.135 267);
+  --sidebar-primary-foreground: oklch(0.155 0.02 267);
+  --sidebar-accent: oklch(0.262 0.008 271);
+  --sidebar-accent-foreground: oklch(0.965 0.002 271);
+  --sidebar-border: oklch(0.298 0.009 271);
+  --sidebar-ring: oklch(0.66 0.135 267);
 }
 
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
 @layer base {
+  /*
+   * Do NOT use:
+   * @apply border-border;
+   *
+   * We set the property directly so Tailwind does not need to resolve
+   * border-border while processing this file.
+   */
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--border);
   }
-  body {
-    @apply bg-background text-foreground;
-  }
+
   html {
-    @apply font-sans;
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--canvas);
+    color: var(--ink);
+
+    font-variant-numeric: lining-nums;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.021em;
+  }
+
+  table,
+  [data-numeric] {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  ::selection {
+    background: var(--brand-soft);
+    color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--line-strong);
+    border: 3px solid transparent;
+    border-radius: 9999px;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--ink-faint);
+  }
+}
+
+/* ==========================================================================
+   FLOWPILOT UTILITIES
+   ========================================================================== */
+
+@layer utilities {
+  .label-micro {
+    font-family: var(--font-plex-mono), ui-monospace, monospace;
+    font-size: 0.6875rem;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .identifier {
+    font-family: var(--font-plex-mono), ui-monospace, monospace;
+    font-size: 0.8125rem;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .figure {
+    font-variant-numeric: tabular-nums lining-nums;
+    letter-spacing: -0.02em;
+  }
+
+  .animate-rise {
+    animation: flowpilot-rise 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+/* ==========================================================================
+   ANIMATION
+   ========================================================================== */
+
+@keyframes flowpilot-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

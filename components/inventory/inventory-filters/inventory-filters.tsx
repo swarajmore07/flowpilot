@@ -1,5 +1,8 @@
 "use client";
 
+import { FilterX } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -7,15 +10,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  inventoryCategories,
+  inventoryStatuses,
+  inventoryWarehouses,
+} from "@/data/inventory/inventory";
 
 interface InventoryFiltersProps {
   warehouse: string;
   status: string;
   category: string;
 
-  onWarehouseChange: (value: string) => void;
-onStatusChange: (value: string) => void;
-onCategoryChange: (value: string) => void;
+  /* Base UI reports string | null from a Select, so every handler here takes
+     null and the call site resolves it — never the other way round. */
+  onWarehouseChange: (value: string | null) => void;
+  onStatusChange: (value: string | null) => void;
+  onCategoryChange: (value: string | null) => void;
+
+  onReset: () => void;
 }
 
 export function InventoryFilters({
@@ -25,48 +37,67 @@ export function InventoryFilters({
   onWarehouseChange,
   onStatusChange,
   onCategoryChange,
+  onReset,
 }: InventoryFiltersProps) {
+  const hasFilters =
+    warehouse !== "all" || status !== "all" || category !== "all";
+
   return (
-    <div className="flex flex-wrap gap-3">
-      <Select value={warehouse} onValueChange={(value) => onWarehouseChange(value ?? "all")}>
-        <SelectTrigger className="w-[180px]">
+    <div className="flex flex-wrap items-center gap-2">
+      <Select value={warehouse} onValueChange={onWarehouseChange}>
+        <SelectTrigger aria-label="Filter by warehouse" className="min-w-36">
           <SelectValue placeholder="Warehouse" />
         </SelectTrigger>
 
         <SelectContent>
-          <SelectItem value="all">All Warehouses</SelectItem>
-          <SelectItem value="Warehouse A">Warehouse A</SelectItem>
-          <SelectItem value="Warehouse B">Warehouse B</SelectItem>
-          <SelectItem value="Warehouse C">Warehouse C</SelectItem>
-          <SelectItem value="Warehouse D">Warehouse D</SelectItem>
+          <SelectItem value="all">All warehouses</SelectItem>
+
+          {inventoryWarehouses.map((item) => (
+            <SelectItem key={item} value={item}>
+              {item}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
 
-      <Select value={status} onValueChange={(value) => onStatusChange(value ?? "all")}>
-        <SelectTrigger className="w-[180px]">
+      <Select value={status} onValueChange={onStatusChange}>
+        <SelectTrigger aria-label="Filter by status" className="min-w-32">
           <SelectValue placeholder="Status" />
         </SelectTrigger>
 
         <SelectContent>
-          <SelectItem value="all">All Status</SelectItem>
-          <SelectItem value="In Stock">In Stock</SelectItem>
-          <SelectItem value="Low Stock">Low Stock</SelectItem>
-          <SelectItem value="Critical">Critical</SelectItem>
+          <SelectItem value="all">All statuses</SelectItem>
+
+          {inventoryStatuses.map((item) => (
+            <SelectItem key={item} value={item}>
+              {item}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
 
-      <Select value={category} onValueChange={(value) => onCategoryChange(value ?? "all")}>
-        <SelectTrigger className="w-[180px]">
+      <Select value={category} onValueChange={onCategoryChange}>
+        <SelectTrigger aria-label="Filter by category" className="min-w-32">
           <SelectValue placeholder="Category" />
         </SelectTrigger>
 
         <SelectContent>
-          <SelectItem value="all">All Categories</SelectItem>
-          <SelectItem value="Mechanical">Mechanical</SelectItem>
-          <SelectItem value="Electronics">Electronics</SelectItem>
-          <SelectItem value="Electrical">Electrical</SelectItem>
+          <SelectItem value="all">All categories</SelectItem>
+
+          {inventoryCategories.map((item) => (
+            <SelectItem key={item} value={item}>
+              {item}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
+
+      {hasFilters && (
+        <Button variant="ghost" size="sm" onClick={onReset}>
+          <FilterX />
+          Clear filters
+        </Button>
+      )}
     </div>
   );
 }

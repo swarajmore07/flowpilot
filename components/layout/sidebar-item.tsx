@@ -8,37 +8,53 @@ import type { NavigationItem } from "@/types/navigation";
 
 interface SidebarItemProps {
   item: NavigationItem;
+  onNavigate?: () => void;
 }
 
-export function SidebarItem({ item }: SidebarItemProps) {
+export function SidebarItem({ item, onNavigate }: SidebarItemProps) {
   const pathname = usePathname();
 
-  const isActive = pathname === item.href;
+  /*
+   * "/" only matches exactly; every other route also matches its children,
+   * so /inventory stays lit on /inventory/anything.
+   */
+  const isActive =
+    item.href === "/"
+      ? pathname === "/"
+      : pathname === item.href || pathname.startsWith(`${item.href}/`);
 
   const Icon = item.icon;
 
   return (
     <Link
       href={item.href}
+      aria-current={isActive ? "page" : undefined}
+      onClick={onNavigate}
       className={cn(
-        "group flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300",
+        "group relative flex h-9 items-center gap-2.5 rounded-md pr-2.5 pl-4 text-sm transition-colors duration-100",
+        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
         isActive
-          ? "bg-blue-600 text-white shadow-md"
-          : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+          ? "bg-brand-soft font-medium text-brand"
+          : "text-ink-soft hover:bg-panel-sunken hover:text-ink"
       )}
     >
-      <div
+      {/* Active rail — a single 2px mark instead of a filled pill. */}
+      <span
+        aria-hidden="true"
         className={cn(
-          "flex h-9 w-9 items-center justify-center rounded-lg transition-colors",
-          isActive
-            ? "bg-white/15"
-            : "bg-slate-100 group-hover:bg-white"
+          "absolute top-1/2 left-0 h-4 w-[2px] -translate-y-1/2 rounded-full transition-colors",
+          isActive ? "bg-brand" : "bg-transparent"
         )}
-      >
-        <Icon className="h-5 w-5" />
-      </div>
+      />
 
-      <span className="flex-1">{item.title}</span>
+      <Icon
+        className={cn(
+          "size-4 shrink-0 transition-colors",
+          isActive ? "text-brand" : "text-ink-faint group-hover:text-ink-soft"
+        )}
+      />
+
+      <span className="truncate">{item.title}</span>
     </Link>
   );
 }

@@ -1,58 +1,35 @@
-import {
-  Boxes,
-  Warehouse,
-  AlertTriangle,
-  IndianRupee,
-} from "lucide-react";
+import type { InventoryProduct, InventoryStatus } from "./types";
 
 export const inventoryData = {
   overview: {
     title: "Inventory",
     description:
-      "Monitor warehouse stock, inventory value, AI reorder suggestions, and warehouse utilization from a single command center.",
+      "Stock levels, reorder signals and warehouse coverage across the network.",
   },
-
-  stats: [
-    {
-      title: "Total Products",
-      value: "12,842",
-      icon: Boxes,
-      iconColor: "text-blue-600",
-      trend: "+182",
-      trendLabel: "This Month",
-      status: "Growing",
-    },
-    {
-      title: "Warehouses",
-      value: "8",
-      icon: Warehouse,
-      iconColor: "text-emerald-600",
-      trend: "+1",
-      trendLabel: "New Facility",
-      status: "Operational",
-    },
-    {
-      title: "Low Stock",
-      value: "18",
-      icon: AlertTriangle,
-      iconColor: "text-amber-500",
-      trend: "-6",
-      trendLabel: "Since Yesterday",
-      status: "Attention",
-    },
-    {
-      title: "Inventory Value",
-      value: "₹8.4Cr",
-      icon: IndianRupee,
-      iconColor: "text-violet-600",
-      trend: "+₹42L",
-      trendLabel: "This Quarter",
-      status: "Healthy",
-    },
-  ],
 };
 
-export const inventoryProducts = [
+/* The single source of truth for the option lists: the form writes only these
+   values, so the filters can offer exactly the same set. */
+export const inventoryWarehouses = [
+  "Warehouse A",
+  "Warehouse B",
+  "Warehouse C",
+  "Warehouse D",
+];
+
+export const inventoryCategories = [
+  "Mechanical",
+  "Electronics",
+  "Electrical",
+];
+
+export const inventoryStatuses: InventoryStatus[] = [
+  "In Stock",
+  "Low Stock",
+  "Critical",
+];
+
+export const inventoryProducts: InventoryProduct[] = [
   {
     id: "INV-1001",
     name: "Servo Motor",

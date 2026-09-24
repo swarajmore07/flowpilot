@@ -8,7 +8,6 @@ import {
   ClipboardCheck,
   Factory,
   LayoutDashboard,
-  Package,
   Settings,
   Sparkles,
   Truck,
